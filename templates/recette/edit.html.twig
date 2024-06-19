@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ recette.titre }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h1>Modifier {{ recette.titre }}</h1>
+            </div>
+            <div class="card-body">
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                    <div class="mb-3">
+                        {{ form_label(form.titre, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                        <div class="invalid-feedback">
+                            Veuillez fournir un titre valide.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.etapes, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.etapes, {'attr': {'class': 'form-control'}}) }}
+                        <div class="invalid-feedback">
+                            Veuillez fournir des étapes valides.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.tags, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.tags, {'attr': {'class': 'form-control'}}) }}
+                        <div class="invalid-feedback">
+                            Veuillez fournir des tags valides.
+                        </div>
+                    </div>
+                    {{ form_label(form.image, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                    <button type="submit" class="btn btn-primary mt-3"> les modifications</button>
+                {{ form_end(form) }}
+                <a href="{{ path('recette_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
