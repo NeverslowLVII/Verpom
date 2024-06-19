@@ -10,14 +10,24 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\RecetteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 class RecetteController extends AbstractController
 {
     #[Route('/', name: 'recette_index')]
-    public function index(RecetteRepository $recetteRepository): Response
+    public function index(RecetteRepository $recetteRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $recettes = $recetteRepository->findAll();
-        return $this->render('recette/index.html.twig', ['recettes' => $recettes]);
+        $queryBuilder = $recetteRepository->createQueryBuilder('r');
+
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            9
+        );
+
+        return $this->render('recette/index.html.twig', [
+            'pagination' => $pagination,
+        ]);
     }
 
     #[Route('/recette/new', name: 'recette_new')]
