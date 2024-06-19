@@ -25,6 +25,9 @@ class Recette
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private $published = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Recette
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
 
         return $this;
     }
