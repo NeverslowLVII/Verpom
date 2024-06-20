@@ -24,6 +24,8 @@ security:
                 target: recette_index
 
     access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/recette/new, roles: ROLE_USER }
         - { path: ^/recette/\d+/edit, roles: ROLE_USER }
         - { path: ^/recette/\d+/delete, roles: ROLE_USER }
