@@ -52,6 +52,8 @@ Un article est composé des éléments suivants :
 3. Configurez la base de données dans le fichier `.env` :
 
    ```dotenv
+   APP_ENV=<dev ou prod>
+   APP_SECRET=<secret>
    DATABASE_URL="postgres://<user>:<password>@<dburl>/verpom"
    ```
 
