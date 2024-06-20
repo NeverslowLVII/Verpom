@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Recettes{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Liste des Recettes</h1>
+    <div class="row">
+        {% for recette in pagination.items %}
+            {% if recette.published %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ recette.image }}" class="card-img-top" alt="{{ recette.titre }}" style="width: 100%; height: 200px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ recette.titre }}</h5>
+                            <a href="{{ path('recette_show', {'id': recette.id}) }}" class="btn btn-primary mt-auto">Voir la recette</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if pagination.currentPageNumber > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('recette_index', {'page': pagination.currentPageNumber - 1}) }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+            {% endif %}
+
+            {% for page in 1..pagination.pageCount %}
+                <li class="page-item {% if page == pagination.currentPageNumber %}active{% endif %}">
+                    <a class="page-link" href="{{ path('recette_index', {'page': page}) }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+
+            {% if pagination.currentPageNumber < pagination.pageCount %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path('recette_index', {'page': pagination.currentPageNumber + 1}) }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <a href="{{ path('recette_new') }}" class="btn btn-primary mt-4">Ajouter une nouvelle recette</a>
+{% endblock %}

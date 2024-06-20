@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Recettes{% endblock %}
+
+{% block body %}
+    <h1>Gestion des Recettes</h1>
+
+    <form method="get" action="{{ path('admin_recettes') }}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Rechercher une recette" value="{{ search }}">
+            <button class="btn btn-primary" type="submit">Rechercher</button>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Publié</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recette in pagination %}
+                <tr>
+                    <td>{{ recette.id }}</td>
+                    <td>{{ recette.titre }}</td>
+                    <td>{{ recette.published ? 'Oui' : 'Non' }}</td>
+                    <td>
+                        <a href="{{ path('admin_recette_toggle', {'id': recette.id}) }}" class="btn btn-primary">
+                            {{ recette.published ? 'Masquer' : 'Afficher' }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
